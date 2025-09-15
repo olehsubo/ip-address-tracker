@@ -25,39 +25,41 @@ export default function ResultCards({ data }: { data: IpifyResult | null }) {
       <div className='grid gap-4 sm:grid-cols-2 lg:grid-cols-4'>
         <article className='card bg-base-200 shadow'>
           <div className='card-body'>
-            <h3 className='card-title text-sm uppercase tracking-wide text-gray-400'>
+            <h3 className='card-title text-sm uppercase tracking-wide text-neutral-200'>
               IP Address
             </h3>
-            <p className='text-2xl font-bold break-all'>{ip}</p>
+            <p className='text-2xl text-emerald-400 font-bold break-all'>
+              {ip}
+            </p>
           </div>
         </article>
 
         <article className='card bg-base-200 shadow'>
           <div className='card-body'>
-            <h3 className='card-title text-sm uppercase tracking-wide text-gray-400'>
+            <h3 className='card-title text-sm uppercase tracking-wide text-neutral-200'>
               Location
             </h3>
-            <p className='text-2xl font-bold'>{location}</p>
+            <p className='text-2xl text-emerald-400 font-bold'>{location}</p>
           </div>
         </article>
 
         <article className='card bg-base-200 shadow'>
           <div className='card-body'>
-            <h3 className='card-title text-sm uppercase tracking-wide text-gray-400'>
+            <h3 className='card-title text-sm uppercase tracking-wide text-neutral-200'>
               Timezone
             </h3>
-            <p className='text-2xl font-bold'>{timezone}</p>
+            <p className='text-2xl text-emerald-400 font-bold'>{timezone}</p>
           </div>
         </article>
 
         <article className='card bg-base-200 shadow'>
           <div className='card-body'>
-            <h3 className='card-title text-sm uppercase tracking-wide text-gray-400'>
+            <h3 className='card-title text-sm uppercase tracking-wide text-neutral-200'>
               ISP
             </h3>
-            <p className='text-2xl font-bold'>{isp}</p>
+            <p className='text-2xl text-emerald-400 font-bold'>{isp}</p>
             {data.as?.name && (
-              <p className='text-sm text-gray-400 mt-1'>{data.as.name}</p>
+              <p className='text-sm text-neutral-200 mt-1'>{data.as.name}</p>
             )}
           </div>
         </article>
