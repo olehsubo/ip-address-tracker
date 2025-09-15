@@ -68,7 +68,7 @@ button,
   background-size: contain;
 }
 
-@media (min-width: 1440px) {
+@media (min-width: 560px) {
   .hero-bg {
     background-image: url('./assets/bg-desktop.png');
     background-position: center;
