@@ -1,9 +1,12 @@
+env:
+  VITE_IPIFY_KEY: ${{ secrets.IPIFY_KEY }}
+
 name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main] # deploy when pushing to main
-  workflow_dispatch: # allow manual runs from Actions tab
+    branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
