@@ -64,8 +64,7 @@ export default function SearchInput({
         ...(isIp ? { ipAddress: query.trim() } : { domain: query.trim() })
       });
 
-      // Use /country or /country,city depending on the detail you want
-      const url = `https://geo.ipify.org/api/v2/country?${params.toString()}`;
+      const url = `https://geo.ipify.org/api/v2/country,city?${params.toString()}`;
 
       const res = await fetch(url);
       if (!res.ok) {
@@ -87,27 +86,31 @@ export default function SearchInput({
   }
 
   return (
-    <form onSubmit={onSubmit} className='w-full max-w-xl mx-auto'>
-      <div className='join w-full shadow-lg'>
+    <form onSubmit={onSubmit} className='w-full max-w-xl mx-auto lg:mx-0'>
+      <div className='join w-full shadow-[0_20px_45px_rgba(15,118,255,0.15)]'>
         <input
           type='text'
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder='Search for any IP address or domain'
-          className='input input-bordered join-item w-full text-lg placeholder-gray-400 focus:outline-none focus:border-primary text-white'
+          className='input join-item w-full border border-white/15 bg-white/10 text-lg text-white placeholder-white/60 backdrop-blur focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-400/40'
           aria-label='IP or domain'
         />
         <button
           type='submit'
-          className='btn btn-primary join-item px-8 text-lg font-medium'
+          className='btn join-item border-0 bg-gradient-to-r from-sky-400 via-blue-500 to-indigo-500 px-8 text-lg font-semibold text-white shadow-[0_12px_30px_rgba(56,189,248,0.35)] hover:from-sky-300 hover:via-blue-400 hover:to-indigo-400'
           disabled={loading}
         >
           {loading ? 'Searching...' : 'Search'}
         </button>
       </div>
       {err && (
-        <p className='mt-2 text-sm text-red-200' role='alert'>
-          {'❌' + ' ' + err}
+        <p
+          className='mt-4 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-rose-200 backdrop-blur'
+          role='alert'
+        >
+          <span aria-hidden='true'>⚠️</span>
+          {err}
         </p>
       )}
     </form>

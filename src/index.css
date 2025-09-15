@@ -60,18 +60,73 @@ button,
 }
 
 .hero-bg {
-  height: 50%;
-  background-color: white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(15 23 42); /* slate-900 */
   background-image: url('./assets/bg-mobile.png');
   background-repeat: no-repeat;
   background-position: top center;
-  background-size: contain;
+  background-size: cover;
+}
+
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(2, 6, 23, 0.92) 0%, rgba(15, 23, 42, 0.9) 55%, rgba(15, 23, 42, 0.95) 100%);
+}
+
+.hero-bg > * {
+  position: relative;
+  z-index: 1;
 }
 
 @media (min-width: 560px) {
   .hero-bg {
     background-image: url('./assets/bg-desktop.png');
     background-position: center;
-    background-size: cover;
+  }
+}
+
+.ip-marker {
+  background: transparent !important;
+  border: none !important;
+}
+
+.ip-marker__pin {
+  display: block;
+  width: 18px;
+  height: 18px;
+  margin: 0 auto;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, rgba(56, 189, 248, 0.95), rgba(59, 130, 246, 0.95));
+  box-shadow: 0 12px 30px rgba(56, 189, 248, 0.45);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.ip-marker__pulse {
+  display: block;
+  width: 14px;
+  height: 14px;
+  margin: -8px auto 0;
+  border-radius: 9999px;
+  background: rgba(59, 130, 246, 0.5);
+  filter: blur(6px);
+  animation: ip-marker-pulse 2.5s infinite;
+}
+
+@keyframes ip-marker-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.75;
+  }
+  70% {
+    transform: scale(1.4);
+    opacity: 0.05;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
   }
 }

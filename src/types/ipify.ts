@@ -11,6 +11,9 @@ export type IpifyResult = {
   location?: {
     country?: string;
     region?: string;
+    city?: string;
     timezone?: string;
+    lat?: number;
+    lng?: number;
   };
 };
