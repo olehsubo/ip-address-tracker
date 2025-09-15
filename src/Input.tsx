@@ -106,8 +106,8 @@ export default function SearchInput({
         </button>
       </div>
       {err && (
-        <p className='mt-2 text-sm text-red-500' role='alert'>
-          {err}
+        <p className='mt-2 text-sm text-red-200' role='alert'>
+          {'❌' + ' ' + err}
         </p>
       )}
     </form>
