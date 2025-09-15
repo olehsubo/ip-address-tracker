@@ -58,3 +58,20 @@ button,
 .btn {
   @apply transition-colors duration-200 ease-in-out;
 }
+
+.hero-bg {
+  height: 50%;
+  background-color: white;
+  background-image: url('./assets/bg-mobile.png');
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+}
+
+@media (min-width: 1440px) {
+  .hero-bg {
+    background-image: url('./assets/bg-desktop.png');
+    background-position: center;
+    background-size: cover;
+  }
+}

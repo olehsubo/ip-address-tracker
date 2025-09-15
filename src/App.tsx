@@ -1,7 +1,7 @@
 function App() {
   return (
-    <main>
-      <h1 className='text-accent-content'>IP Address Tracker</h1>
+    <main className='hero-bg grid place-items-center'>
+      <h1 className='text-3xl font-bold text-b1'>IP Address Tracker</h1>
     </main>
   );
 }
