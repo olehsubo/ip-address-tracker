@@ -1,18 +1,17 @@
 import { useState } from 'react';
+import type { IpifyResult } from '../types/ipify';
 
-/**
- * Detect if the query looks like an IP (v4/v6) vs. domain.
- * We keep this forgiving; the API will still validate.
- */
 function looksLikeIp(q: string) {
-  // IPv4 quick check
   const v4 = /^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
-  // IPv6 (very loose)
-  const v6 = /^[0-9a-fA-F:]+$/ && q.includes(':');
+  const v6 = q.includes(':'); // simple heuristic
   return v4.test(q) || v6;
 }
 
-export default function SearchInput() {
+export default function SearchInput({
+  onResult
+}: {
+  onResult: (data: IpifyResult) => void;
+}) {
   const [query, setQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
@@ -23,35 +22,26 @@ export default function SearchInput() {
     e.preventDefault();
     setErr(null);
 
-    if (!query.trim()) {
-      setErr('Please enter a domain or IP address.');
-      return;
-    }
-    if (!apiKey) {
-      setErr('Missing API key. Set VITE_IPIFY_KEY in your .env.');
-      return;
-    }
+    if (!query.trim()) return setErr('Please enter a domain or IP address.');
+    if (!apiKey) return setErr('Missing API key (VITE_IPIFY_KEY).');
 
     setLoading(true);
     try {
-      // Choose param based on query
       const isIp = looksLikeIp(query.trim());
       const params = new URLSearchParams({
         apiKey,
         ...(isIp ? { ipAddress: query.trim() } : { domain: query.trim() })
       });
 
-      // country endpoint (as in your example). You can also use /country,city
+      // Use /country or /country,city depending on the detail you want
       const url = `https://geo.ipify.org/api/v2/country?${params.toString()}`;
 
       const res = await fetch(url);
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(`${res.status} ${res.statusText}: ${text}`);
-      }
-      const data = await res.json();
+      if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+      const data = (await res.json()) as IpifyResult;
 
-      console.log('IPIFY RESULT:', data); // <- requested behavior for now
+      console.log('IPIFY RESULT:', data);
+      onResult(data);
     } catch (e: any) {
       console.error(e);
       setErr(e?.message ?? 'Request failed');
@@ -79,7 +69,6 @@ export default function SearchInput() {
           {loading ? 'Searching...' : 'Search'}
         </button>
       </div>
-
       {err && (
         <p className='mt-2 text-sm text-red-500' role='alert'>
           {err}
